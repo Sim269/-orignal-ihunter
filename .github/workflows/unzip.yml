@@ -1,4 +1,4 @@
-name: Unzip map tiles
+name: Unzip map tiles V2
 
 on:
   workflow_dispatch:
@@ -13,14 +13,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Extract tiles
+      - name: Remove old tiles
         run: |
-          unzip -o orignal_xyz_github_pages.zip -d .
+          rm -rf 12 13 14 15 16 17
 
-      - name: Commit extracted files
+      - name: Extract V2 tiles
+        run: |
+          unzip -o orignal_v2_xyz_github.zip -d .
+
+      - name: Commit V2 tiles
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add .
-          git commit -m "Extract iHunter map tiles" || exit 0
+          git add -A
+          git commit -m "Install iHunter V2 map tiles" || exit 0
           git push
